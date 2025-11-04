@@ -27,11 +27,11 @@ Pydub requires ffmpeg to function.
     '''
 3.Install Python Dependencies 
   Create a requirements.txt file in the project root with the following content:
-  '''Plaintext
+  
     Flask
     pydub
     SpeechRecognition
-  '''
+
  '''bash   
  pip install -r requirements.txt
  '''
