@@ -11,7 +11,7 @@ Audio file to text web application with Flask
      ffmpeg (Must be installed on the system for Pydub to read and write audio files.)
 
 ```bash
-      git clone https://github.com/mustafamrtt/speechtotext.git
+git clone https://github.com/mustafamrtt/speechtotext.git
 cd speechtotext
 ```
 2. (Important) Install ffmpeg
