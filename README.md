@@ -2,9 +2,9 @@ Audio file to text web application with Flask
 -
 
 -Features 
-  Format Conversation: Uses pydub to convert any audio format into the required .wav format.
-  Using io.BytesIO process is handled in-memory
-  Transcribes the audio with SpeechRecognition library(Google API)
+  -Format Conversation: Uses pydub to convert any audio format into the required .wav format.\n
+  Using io.BytesIO process is handled in-memory\n
+  Transcribes the audio with SpeechRecognition library(Google API)\n
   The fetch API provides a smooth user experience, showing results without reloading the page.
 
  -Dependency:
