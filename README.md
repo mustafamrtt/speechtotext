@@ -31,8 +31,7 @@ Pydub requires ffmpeg to function.
     Flask
     pydub
     SpeechRecognition
-    '''
-  '''bash
-  pip install -r requirements.txt
   '''
-  
+ '''bash   
+ pip install -r requirements.txt
+ '''
