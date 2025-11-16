@@ -8,12 +8,13 @@ Audio file to text web application with Flask
   
   -Using io.BytesIO process is handled in-memory
   
-  -Transcribes the audio with SpeechRecognition library(Google API)
+  -Transcribes the audio with openai whisper base model
   
   -The fetch API provides a smooth user experience, showing results without reloading the page.
 
  -Dependency:
      ffmpeg (Must be installed on the system for Pydub to read and write audio files.)
+     whisper
 
 ```bash
 git clone https://github.com/mustafamrtt/speechtotext.git
@@ -39,7 +40,7 @@ sudo apt update && sudo apt install ffmpeg
   
     Flask
     pydub
-    SpeechRecognition
+    whisper
     
 ```bash
   pip install -r requirements.txt
