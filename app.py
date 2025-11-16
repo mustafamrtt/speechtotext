@@ -1,12 +1,15 @@
+import os
 import io
-import speech_recognition as sr
+import tempfile
+import whisper
 from flask import Flask, render_template, request, jsonify
 from pydub import AudioSegment
 
 
-app = Flask(__name__)
 
+app = Flask(__name__,template_folder=('templates'),static_folder=('static'))
 
+model = whisper.load_model('base')
 @app.route('/')
 def index():
     
@@ -22,6 +25,8 @@ def transcribe_audio():
 
     audio_file = request.files['audio']
     
+    if audio_file.filename == '':
+        return jsonify ({'error': 'File is not selected'}),400
   
   
     
@@ -36,26 +41,28 @@ def transcribe_audio():
 
         wav_io.seek(0);
 
-        recognizer = sr.Recognizer()
-        
-       
-        with sr.AudioFile(wav_io) as source:
-            audio_data = recognizer.record(source)
-        
-      
-        try:
-            text = recognizer.recognize_google(audio_data, language='en-EN')
-            result = {'text': text}
-        except sr.UnknownValueError:
-            result = {'error': 'Sound is terrible'}
-        except sr.RequestError as e:
-            result = {'error': f'Google API error: {e}'}
-
-    except Exception as e:
-        result = {'error': f'process error: {str(e)}'}
     
-    return jsonify(result)
+    
 
+        
+    except Exception as e:
+        return jsonify({'error':f'pydub error:{str(e)}'}), 500
+       
+        
+    temp_path = None;
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".wav",delete=False) as temp_file:
+         temp_file.write(wav_io.getvalue())
+         temp_path = temp_file.name;
+         result = model.transcribe(temp_path)   
+         text = result.get("text");
+         return jsonify({'text':text})
+    except Exception as e:
+        return jsonify({'error':"whisper error "}+str(e)), 500
+    
+    finally:
+        if temp_path and os.path.exists(temp_path):
+            os.remove(temp_path)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
